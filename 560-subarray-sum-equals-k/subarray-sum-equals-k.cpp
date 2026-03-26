@@ -2,11 +2,11 @@ class Solution {
 public:
     int subarraySum(vector<int>& a, int k) {
         int n = a.size();
-        map<int, int>presum;
+        unordered_map<int, int>presum;
         presum[0] = 1;
 
         int sum = 0, count = 0;
-        for(int i=0; i<n; i++)
+        for(int i = 0; i < n; i++)
         {
             sum += a[i];
             
