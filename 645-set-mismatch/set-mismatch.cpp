@@ -3,25 +3,23 @@ public:
     vector<int> findErrorNums(vector<int>& nums) 
     {
         int n = nums.size();
-        unordered_map<int,int> hash;
+        long long sum = 0, sum2 = 0;
+        long long Sn = (1LL * n * (n+1)) / 2;
+        long long S2n = (1LL * n * (n+1) * (2LL*n+1)) / 6;
 
         for(int i = 0; i < n; i++)
         {
-            hash[nums[i]]++;
-        }
+            sum += nums[i];
+            sum2 += (long long)nums[i] * (long long)nums[i];
+        }    
 
-        int duplicate = -1;
-        int missing = -1;
+        long long val1 = sum - Sn; // x(repeat)-y(missing)
+        long long val2 = sum2 - S2n; // x+y
+        val2 = val2 / val1;
 
-        for(int i = 1; i <= n; i++)
-        {
-            if(hash[i] == 2)
-                duplicate = i;
+        long long x = (val1 + val2) / 2;
+        long long y = x - val1;
 
-            if(hash[i] == 0)
-                missing = i;
-        }
-
-        return {duplicate, missing};
+        return {(int)x, (int)y};
     }
 };
