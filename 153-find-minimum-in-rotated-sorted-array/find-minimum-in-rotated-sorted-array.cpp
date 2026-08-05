@@ -1,18 +1,28 @@
 class Solution {
 public:
-    int findMin(vector<int>& nums) 
+    int findMin(vector<int>& a) 
     {
-        int n = nums.size();
+        int n = a.size();
         int mini = INT_MAX;
+        int low = 0, high = n-1;
 
-        for(int i = 0; i < n; i++)
+        while(low <= high)
         {
-            if(nums[i] < mini)
+            int mid = low + (high - low)/2;
+
+            if(a[low] <= a[mid]) //Left half is sorted
             {
-                mini = nums[i];
+                mini = min(mini, a[low]);
+                low = mid + 1;
+            }
+            
+            else
+            {
+                mini = min(mini, a[mid]);
+                high = mid - 1;
             }
         }  
 
-        return mini;  
+        return mini;
     }
 };
