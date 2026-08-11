@@ -4,15 +4,16 @@ public:
     {
         int n = a.size();
 
-        unordered_map<int, int> mpp;
+        unordered_set<int> st;
 
         for(int i = 0; i < n; i++)
         {
-            mpp[a[i]]++;
-            if(mpp[a[i]] > 1)
+            if(st.find(a[i]) != st.end())
             {
                 return true;
             }
+
+            st.insert(a[i]);
         }
         return false;
     }
