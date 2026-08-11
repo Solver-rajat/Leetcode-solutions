@@ -4,16 +4,16 @@ public:
     {
         int n = a.size();
 
-        sort(a.begin(), a.end());
+        unordered_map<int, int> mpp;
 
-        for(int i = 0; i < n-1; i++)
+        for(int i = 0; i < n; i++)
         {
-            if(a[i] == a[i+1])
+            mpp[a[i]]++;
+            if(mpp[a[i]] > 1)
             {
                 return true;
             }
         }
-
         return false;
     }
 };
