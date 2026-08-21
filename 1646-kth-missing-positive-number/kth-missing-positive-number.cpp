@@ -2,22 +2,19 @@ class Solution {
 public:
     int findKthPositive(vector<int>& nums, int k) 
     {
-        int missing = 0;
-        int i = 1;
-
-        while (true)
+        for(int i = 0; i < nums.size(); i++)
         {
-            if(find(nums.begin(), nums.end(), i) == nums.end())
+            if(nums[i] <= k)
             {
-                missing++;
+                k++;
             }
 
-            if (missing == k)
+            else
             {
-                return i;
+                break;
             }
-
-            i++;
         }
+
+        return k;
     }
 };
