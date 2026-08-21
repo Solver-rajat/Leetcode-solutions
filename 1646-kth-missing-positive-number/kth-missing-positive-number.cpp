@@ -2,19 +2,24 @@ class Solution {
 public:
     int findKthPositive(vector<int>& nums, int k) 
     {
-        for(int i = 0; i < nums.size(); i++)
+        int low = 0;
+        int high = nums.size() - 1;
+
+        while(low <= high)
         {
-            if(nums[i] <= k)
+            int mid = low + (high - low) / 2;
+
+            if(nums[mid] - (mid+1) < k) //nums[mid] - (mid+1) = no. of missing numbers till mid element
             {
-                k++;
+                low = mid + 1;
             }
 
             else
             {
-                break;
+                high = mid - 1;
             }
         }
 
-        return k;
+        return k + high + 1;
     }
 };
