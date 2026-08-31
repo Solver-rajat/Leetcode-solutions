@@ -5,27 +5,40 @@ public:
         int m = nums1.size();
         int n = nums2.size();
         
-        vector<int> mergedArray(m + n);
-        for(int i = 0; i < m; i++)
-        {
-            mergedArray[i] = nums1[i];
-        }
-
-        for(int i = 0; i < n; i++)
-        {
-            mergedArray[m + i] = nums2[i];
-        }
-
         int totalSize = m + n;
-        sort(mergedArray.begin(), mergedArray.end());
-        
-        if(totalSize % 2 == 0)
+
+        int medianIndex1 = (totalSize - 1) / 2;
+        int medianIndex2 = totalSize / 2;
+
+        int i = 0, j = 0;
+        int currentIndex = 0;
+        int median1 = 0, median2 = 0;
+
+        while(currentIndex <= medianIndex2)
         {
-            return (mergedArray[totalSize / 2 - 1] + mergedArray[totalSize / 2]) / 2.0;
+            int currentElement;
+            if(i < m && (j >= n || nums1[i] <= nums2[j]))
+            {
+                currentElement = nums1[i];
+                i++;
+            }
+            else
+            {
+                currentElement = nums2[j];
+                j++;
+            }
+
+            if(currentIndex == medianIndex1)
+            {
+                median1 = currentElement;
+            }
+            if(currentIndex == medianIndex2)
+            {
+                median2 = currentElement;
+            }
+
+            currentIndex++;
         }
-        else
-        {
-            return mergedArray[totalSize / 2];
-        }
+        return (median1 + median2) / 2.0;
     }
 };
