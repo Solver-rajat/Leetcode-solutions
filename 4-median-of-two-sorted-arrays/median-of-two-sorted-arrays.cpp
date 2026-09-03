@@ -4,41 +4,61 @@ public:
     {
         int m = nums1.size();
         int n = nums2.size();
-        
-        int totalSize = m + n;
+        int total = n+m;
 
-        int medianIndex1 = (totalSize - 1) / 2;
-        int medianIndex2 = totalSize / 2;
+        if(m > n) return findMedianSortedArrays(nums2, nums1);
 
-        int i = 0, j = 0;
-        int currentIndex = 0;
-        int median1 = 0, median2 = 0;
+        int low = 0, high = m;
 
-        while(currentIndex <= medianIndex2)
+        while(low <= high)
         {
-            int currentElement;
-            if(i < m && (j >= n || nums1[i] <= nums2[j]))
+            int mid1 = (low + high) / 2;
+            int mid2 = (total + 1) / 2 - mid1;
+
+            int L1 = INT_MIN, L2 = INT_MIN;
+            int R1 = INT_MAX, R2 = INT_MAX;
+
+            if(mid1 < m)
             {
-                currentElement = nums1[i];
-                i++;
+                R1 = nums1[mid1];
+            }
+
+            if(mid2 < n)
+            {
+                R2 = nums2[mid2];
+            }
+
+            if(mid1 - 1 >= 0)
+            {
+                L1 = nums1[mid1 - 1];
+            }
+
+            if(mid2 - 1 >= 0)
+            {
+                L2 = nums2[mid2 - 1];
+            }
+
+            if(L1 <= R2 && L2 <= R1)
+            {
+                if(total % 2 == 0)
+                {
+                    return (double)(max(L1, L2) + min(R1, R2)) / 2.0;
+                }
+                else
+                {
+                    return max(L1, L2);
+                }
+            }
+            else if(L1 > R2)
+            {
+                high = mid1 - 1;
             }
             else
             {
-                currentElement = nums2[j];
-                j++;
+                low = mid1 + 1;
             }
-
-            if(currentIndex == medianIndex1)
-            {
-                median1 = currentElement;
-            }
-            if(currentIndex == medianIndex2)
-            {
-                median2 = currentElement;
-            }
-
-            currentIndex++;
         }
-        return (median1 + median2) / 2.0;
+
+        return 0;
     }
 };
