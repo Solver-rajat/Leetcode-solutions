@@ -2,32 +2,35 @@ class Solution {
 public:
     string reverseWords(string s) 
     {
-        vector<string> words;
-        
-        for(int i = 0; i < s.size(); i++)
-        {
-            if(s[i] == ' ')
-            {
-                continue; // Skip spaces
-            }
-
-            string word = "";
-            while(i < s.size() && s[i] != ' ')
-            {
-                word += s[i]; // Build the word character by character
-                i++;
-            }
-            words.push_back(word);
-        }
-
         string result = "";
-        for(int i = words.size() - 1; i >= 0; i--)
+        int i = s.size();
+
+        while(i >= 0)
         {
-            result += words[i];
-            if(i > 0)
+            while(i >= 0 && s[i] == ' ')
+            {
+                i--;
+            }
+
+            if(i < 0)
+            {
+                break;
+            }
+
+            int end = i;
+            while(i >= 0 && s[i] != ' ')
+            {
+                i--;
+            }
+
+            string word = s.substr(i + 1, end - i);
+
+            if(!result.empty())
             {
                 result += " ";
             }
+
+            result += word;
         }
         return result;     
     }
