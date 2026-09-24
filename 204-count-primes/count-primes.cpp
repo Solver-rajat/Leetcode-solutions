@@ -5,7 +5,7 @@ public:
         if (n <= 2)
             return 0;
 
-        // Only store odd numbers.
+       
         int size = n / 2;
 
         vector<bool> isPrime(size, true);
