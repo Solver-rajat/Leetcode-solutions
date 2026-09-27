@@ -1,35 +1,39 @@
 class Solution {
 public:
-    int singleNonDuplicate(vector<int>& nums) 
+    int singleNonDuplicate(vector<int>& a) 
     {
-        int n = nums.size();
+        int n = a.size();
+        if (n == 1)
+            return a[0];
 
-        // If numsay has only one element, return it
-        if (n == 1) return nums[0];
+        if (a[0] != a[1])
+            return a[0];
 
-        // Loop through the numsay
-        for (int i = 0; i < n; i++) {
+        if (a[n - 1] != a[n - 2])
+            return a[n - 1];
 
-            // Check if it's the first element and not equal to the next
-            if (i == 0) {
-                if (nums[i] != nums[i + 1])
-                    return nums[i];
+        int low = 1, high = n - 2;
+
+        while (low <= high)
+        {
+            int mid = low + (high - low) / 2;
+
+            if (a[mid] != a[mid - 1] && a[mid] != a[mid + 1])
+            {
+                return a[mid];
             }
 
-            // Check if it's the last element and not equal to the previous
-            else if (i == n - 1) {
-                if (nums[i] != nums[i - 1])
-                    return nums[i];
+            // left array
+            if ((mid % 2 == 1 && a[mid - 1] == a[mid]) ||
+                (mid % 2 == 0 && a[mid] == a[mid + 1]))
+            {
+                low = mid + 1;
             }
-
-            // Check if the current element is not equal to both neighbors
-            else {
-                if (nums[i] != nums[i - 1] && nums[i] != nums[i + 1])
-                    return nums[i];
+            else
+            {
+                high = mid - 1;
             }
         }
-
-        // Dummy return if no element found (problem guarantees there is one)
-        return -1;  
+        return -1;    
     }
 };
