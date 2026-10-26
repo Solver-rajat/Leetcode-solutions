@@ -50,7 +50,7 @@ public:
             head = head->next;
         }
 
-        reverseList(slow);
+        reverseList(reversehead);
         return true;
     }
 };
