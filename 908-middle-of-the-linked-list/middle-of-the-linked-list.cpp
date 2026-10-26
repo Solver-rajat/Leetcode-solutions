@@ -15,30 +15,15 @@ public:
         if(head == NULL || head->next == NULL)
             return head;
 
-        int count = 0;
-        ListNode* temp = head;
+        ListNode* slow = head;
+        ListNode* fast = head;
 
-        while(temp != nullptr)
+        while(fast != NULL && fast->next != NULL)
         {
-            count++;
-            temp = temp->next;
+            slow = slow->next;
+            fast = fast->next->next;
         }    
 
-        temp = head;
-        int mid = count/2;
-        mid = mid + 1;
-
-        count = 0;
-        while(temp != nullptr)
-        {
-            count++;
-            if(count == mid)
-            {
-                head = temp;
-            }
-            temp = temp->next;
-        }
-
-        return head;
+        return slow;
     }
 };
